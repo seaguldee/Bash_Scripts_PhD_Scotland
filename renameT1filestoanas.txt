@@ -1,0 +1,21 @@
+#! /bin/bash
+#script to list the full directory titles in bash, you must make sure that all the directories in /scans/ folder only contains the main directory of the file.  For example, the format would be... 
+#  /sdata/images/projects/ASD_MM/1/scans/asd_01/b9a577d3-1855-49db-8c3e-7e79135722c6/20130118_155130
+# there should be one directory under the asd_01 folder file... 
+
+totalfilenumber=$(find /sdata/images/projects/ASD_MM/1/scans/asd_* -mindepth 2 -maxdepth 2 -type d -print | wc -l)
+echo "you have a total of $totalfilenumber in sdata/images/projects/ASD_MM/scans/"
+echo "saving the T1 file locates to list T1 files"
+# this lists all of the directory files, 3 levels down with a ending of MPRAGE or 2
+find /sdata/images/projects/ASD_MM/1/scans/asd_* -maxdepth 3 -name *MPRAGE -o -name 2 > /sdata/images/projects/ASD_MM/1/datafiles/T1files
+# this then goes into each of the listed directories you've just changed and renames all the files that start with s* to anas*.  If you have already renamed the file, this shouldn't rename again.  
+for d in $(cat /sdata/images/projects/ASD_MM/1/datafiles/T1files) 
+do
+	cd $d
+		for f in s*;
+		do mv $f ana${f%%}
+		done
+done
+
+
+ 

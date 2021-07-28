@@ -1,0 +1,14 @@
+# !/bin/bash
+# this is a script to make a new directory with processed files and add the participant identity to the file and then copy particular files into the new directory.  It searches through a list of path names which you created previously for T1 files and then removes the participant information part of the pathname (for example - asd_02) and then adds this to the new directory name
+
+#this goes into the csv file containing the T1 paths and names variable d for each line
+for d  in $(cat /sdata/images/projects/ASD_MM/1/datafiles/T1files.csv)
+do 
+
+# this reads out the pathname and then has awk take the participant information bit (note, normally awk tries to go into a file, but this stategy just reads the directory path
+	asdalias=$(echo $d |awk 'BEGIN {FS = "/" } {print $8}')	
+	cd $d
+	cp -rf anas* /sdata/images/projects/ASD_MM/1/processing/segmentations_Bill/segmentation_$asdalias
+done
+	
+

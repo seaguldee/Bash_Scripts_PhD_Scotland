@@ -1,0 +1,5 @@
+# /bin/bash
+# this very simply lists that files that start with a 2.  It is used to list all the T1 file directories
+
+find /sdata/images/projects/ASD_MM/1/scans/asd_* -maxdepth 3 -mindepth 3 -name "2" -o -name "2_*" > /sdata/images/projects/ASD_MM/1/datafiles/T1directories
+

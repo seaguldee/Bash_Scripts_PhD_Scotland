@@ -1,0 +1,16 @@
+# !/bin/bash
+# this is a script to make a new directory to process VBM analysis because I am not sure if it is the same segmentation that bill did.  It creates a new directory called vbm1 with the subject alias and then copies the anas files into that foled.  It searches through a list of path names which you created previously for T1 files and then removes the participant information part of the pathname (for example - asd_02) and then adds this to the new directory name
+
+#this goes into the csv file containing the T1 paths and names variable d for each line - make sure this is updated with all the T1 directores and that they have been changed to anas
+for d  in $(cat /sdata/images/projects/ASD_MM/1/datafiles/T1files)
+do 
+
+# this reads out the pathname and then has awk take the participant information bit (note, normally awk tries to go into a file, but this stategy just reads the directory path
+	asdalias=$(echo $d |awk 'BEGIN {FS = "/" } {print $8}')	
+	cd $d
+	mkdir vbm1_$asdalias
+	cp -rf anas*.img ./vbm1_$asdalias
+	cp -rf anas*.hdr ./vbm1_$asdalias
+done
+	
+

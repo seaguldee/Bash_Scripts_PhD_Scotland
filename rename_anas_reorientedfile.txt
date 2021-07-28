@@ -1,0 +1,16 @@
+# !/bin/bash
+# this is a script to make a copy of the anas file and relabell it as a ro (reorient file.  This is so that we can reorient the o,0,0 position and still keep the original file.  
+
+#this goes into the csv file containing the T1 paths and names variable d for each line - make sure this is updated with all the T1 directores and that they have been changed to anas
+for d  in $(cat /sdata/images/projects/ASD_MM/1/datafiles/T1files)
+do 
+
+# this reads out the pathname and then has awk take the participant information bit (note, normally awk tries to go into a file, but this stategy just reads the directory path
+	asdalias=$(echo $d |awk 'BEGIN {FS = "/" } {print $8}')	
+	cd $d/vbm1_$asdalias
+	for f in anas*;
+	do cp -rf $f ./ro_${f%%}
+	done
+done
+	
+

@@ -1,0 +1,10 @@
+#bin/bash
+
+#This is a script to simply print out all the ps files and the tables for the spectroscopy output.  Uses the list ps_files.  
+
+for f in $(cat /sdata/images/projects/ASD_MM/1/datafiles/additional_control_list)
+do 
+	lp -d CLJ4600 $f/ps
+	lp -d CLJ4600 $f/table
+done
+

@@ -1,0 +1,18 @@
+#/bin/bash
+# this is the second part of the script_spect1 script.  It goes into the previously created spect_files_please_use datafile and creates a directory with the participant number on it (for seperating out later ont).  It then copies all of the dcm files into the new directory.  It then creates an output with the new directory names.  Finaly it copies all of the directories into a spect_files folder so all the spect files are in the same place.  
+
+for d in $(cat /sdata/images/projects/ASD_MM/1/datafiles/spect_files_please_use)
+do
+        cd $d
+        asdalias=$(echo $d |awk 'BEGIN {FS = "/" } {print $8}')
+        mkdir ../nnspect_$asdalias
+        cp -rf $d ../nnspect_$asdalias
+        cd ../nnspect_$asdalias
+        pwd >> /sdata/images/projects/ASD_MM/1/datafiles/final_spect_directory_file_two
+done
+
+for d in $(cat /sdata/images/projects/ASD_MM/1/datafiles/final_spect_directory_file_two)
+do
+       cp -rf $d /sdata/images/projects/ASD_MM/1/scans/spect_files_two/
+done
+

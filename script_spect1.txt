@@ -1,0 +1,16 @@
+#/bin/bash
+#This is a bit of a tedious script.  First it searches for all directory names that finish with an 8,9 or 10 and insert them into a file called spectroscopy_files.  Then it checks the number of files in this output to remove anything with greater than 3 files (removes resting state files labelled with 8,9,10).  Then it outputs all of these potential directories to start on script_spect2.  
+
+find /sdata/images/projects/ASD_MM/1/scans/asd_* -maxdepth 3 -mindepth 3 -name "8" -o -name "8_*" >> /sdata/images/projects/ASD_MM/1/datafiles/spectroscopy_files
+find /sdata/images/projects/ASD_MM/1/scans/asd_* -maxdepth 3 -mindepth 3 -name "9" -o -name "9_*" >> /sdata/images/projects/ASD_MM/1/datafiles/spectroscopy_files
+find /sdata/images/projects/ASD_MM/1/scans/asd_* -maxdepth 3 -mindepth 3 -name "10" -o -name "10_*" >> /sdata/images/projects/ASD_MM/1/datafiles/spectroscopy_files
+
+for d in $(cat /sdata/images/projects/ASD_MM/1/datafiles/spectroscopy_files)
+do
+        cd $d
+        m=$(ls | wc -l)
+        if [ $m -lt 3 ]; then
+                echo $d >> /sdata/images/projects/ASD_MM/1/datafiles/spect_files_please_use
+        fi
+done
+

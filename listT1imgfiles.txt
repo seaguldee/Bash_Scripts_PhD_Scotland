@@ -1,0 +1,4 @@
+#! /bin/bash
+#script to list the full list of t1 files for processing in SPM.  
+
+find /sdata/images/projects/ASD_MM/1/scans/asd_* -maxdepth 4 -name anas*.img > /sdata/images/projects/ASD_MM/1/datafiles/anasfiles

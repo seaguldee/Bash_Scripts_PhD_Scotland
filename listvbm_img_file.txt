@@ -1,0 +1,9 @@
+# /bin/bash
+# this is a simple script that lists files the anas vbm image files to insert into the matlab prompt.  
+
+for d in $(cat /sdata/images/projects/ASD_MM/1/datafiles/T1directories)
+do 
+
+	cd $d/vbm*
+	ls $PWD/ro*.img >> /sdata/images/projects/ASD_MM/1/datafiles/VBM_img_files
+done
